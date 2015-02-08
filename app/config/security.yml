@@ -1,12 +1,31 @@
 security:
+    encoders:
+        Acl\ClassifiedBundle\Entity\User:
+            algorithm: bcrypt
+
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH ]
+
     providers:
-        in_memory:
-            memory: ~
+        main:
+            entity:
+                class:     AclClassifiedBundle:User
+                property:  email
 
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-
-        default:
+        admin:
+            pattern: ^/
             anonymous: ~
+            form_login:
+                login_path: /login
+                check_path: /login_check
+                username_parameter: _email
+            logout:
+                path:   /admin/logout
+                target:   /
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }

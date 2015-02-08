@@ -1,0 +1,4 @@
+services:
+#    acl_classified.example:
+#        class: Acl\ClassifiedBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]

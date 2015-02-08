@@ -1,0 +1,8 @@
+{
+    "name": "acl-classified-bundle",
+    "dependencies": {
+        "bootstrap": "latest",
+        "jquery": "latest"
+    }
+}
+

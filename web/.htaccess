@@ -6,6 +6,7 @@
 DirectoryIndex app.php
 
 <IfModule mod_rewrite.c>
+    Options +FollowSymlinks
     RewriteEngine On
 
     # Determine the RewriteBase automatically and set it as environment variable.
@@ -39,7 +40,8 @@ DirectoryIndex app.php
     # If the requested filename exists, simply serve it.
     # We only want to let Apache serve files and not directories.
     RewriteCond %{REQUEST_FILENAME} -f
-    RewriteRule .? - [L]
+    RewriteRule ^(.*)$ app_dev.php [QSA,L]
+    # RewriteRule .? - [L]
 
     # Rewrite all other queries to the front controller.
     RewriteRule .? %{ENV:BASE}/app.php [L]

@@ -1,0 +1,27 @@
+home:
+    path:     /
+    defaults: { _controller: AclClassifiedBundle:Security:dumpString }
+
+admin:
+    path:     /admin
+    defaults: { _controller: AclClassifiedBundle:Security:dumpAdminString }
+
+login:
+    path:     /login
+    defaults: {_controller: AclClassifiedBundle:Security:login }
+login_check:
+    path:     /login_check
+logout:
+    path:     /admin/logout
+
+timetable:
+    path:     /timetable
+    defaults: {_controller: AclClassifiedBundle:Timetable:viewTimetable }
+
+account_register:
+    path:     /register
+    defaults: {_controller: AclClassifiedBundle:Account:register }
+
+account_create:
+    path:     /register/create
+    defaults: {_controller: AclClassifiedBundle:Account:create }
