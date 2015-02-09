@@ -6,9 +6,9 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Acl\ClassifiedBundle\Entity\User;
+use Acl\ClassifiedBundle\Entity\Role;
 
-class LoadUserData implements FixtureInterface, ContainerAwareInterface
+class LoadRoleData implements FixtureInterface, ContainerAwareInterface
 {
 
     /**
@@ -30,14 +30,16 @@ class LoadUserData implements FixtureInterface, ContainerAwareInterface
      */
     public function load(ObjectManager $manager)
     {
-      $user = new User();
-      $user->setUsername("someuser");
-      $user->setSalt(md5(uniqid()));
-      $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
-      $user->setPassword($encoder->encodePassword('blue', $user->getSalt()));
-      $user->setEmail("someuser@mail.ca");
+      $adminRole = new Role();
+      $adminRole->setName('admin');
+      $adminRole->setRole('ROLE_ADMIN');
+      $manager->persist($adminRole);
 
-      $manager->persist($user);
+      $userRole = new Role();
+      $userRole->setName('user');
+      $userRole->setRole('ROLE_USER');
+      $manager->persist($userRole);
+
 
       $manager->flush();
     }

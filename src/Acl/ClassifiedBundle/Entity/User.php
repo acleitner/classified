@@ -303,9 +303,9 @@ class User implements AdvancedUserInterface, \Serializable
      * @param \Acl\ClassifiedBundle\Entity\Role $roles
      * @return User
      */
-    public function addRole(\Acl\ClassifiedBundle\Entity\Role $roles)
+    public function addRole(\Acl\ClassifiedBundle\Entity\Role $role)
     {
-        $this->roles[] = $roles;
+        $this->roles[] = $role;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 home:
     path:     /
-    defaults: { _controller: AclClassifiedBundle:Security:dumpString }
+    defaults: { _controller: AclClassifiedBundle:Home:index }
 
 admin:
     path:     /admin
@@ -25,3 +25,7 @@ account_register:
 account_create:
     path:     /register/create
     defaults: {_controller: AclClassifiedBundle:Account:create }
+
+dashboard:
+    path:     /dashboard
+    defaults: {_controller: AclClassifiedBundle:Dashboard:index }

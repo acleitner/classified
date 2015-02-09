@@ -22,6 +22,10 @@ class AccountController extends Controller
             $registration = $form->getData();
 
             $user = $registration->getUser();
+
+            $roleRepository = $this->getDoctrine()->getRepository('AclClassifiedBundle:Role');
+            $role = $roleRepository->findOneByName('user');
+            $user->addRole($role);
             $encoder = $this->get('security.encoder_factory')->getEncoder($user);
             $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
             $user->setPlainPassword(null);

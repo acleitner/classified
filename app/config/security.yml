@@ -17,15 +17,15 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-        admin:
-            pattern: ^/
+
+        default:
             anonymous: ~
             form_login:
                 login_path: /login
                 check_path: /login_check
                 username_parameter: _email
             logout:
-                path:   /admin/logout
+                path:   /logout
                 target:   /
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/dashboard, roles: ROLE_USER }
