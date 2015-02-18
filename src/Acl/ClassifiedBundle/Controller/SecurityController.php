@@ -31,16 +31,4 @@ class SecurityController extends Controller
             )
         );
     }
-
-    public function dumpAdminStringAction()
-    {
-      return $this->render('AclClassifiedBundle:Security:dumpAdminString.html.twig', array());
-    }
-
-
-    public function dumpStringAction()
-    {
-      return $this->render('AclClassifiedBundle:Security:dumpString.html.twig', array());
-    }
-
 }

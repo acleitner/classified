@@ -1,0 +1,18 @@
+timetable:
+    path:     /
+    defaults: {_controller: AclClassifiedBundle:Timetable:index }
+timetable:
+    path:     /show
+    defaults: {_controller: AclClassifiedBundle:Timetable:show }
+timetable_new:
+    path:     /new
+    defaults: {_controller: AclClassifiedBundle:Timetable:new }
+timetable_create:
+    path:     /create
+    defaults: {_controller: AclClassifiedBundle:Timetable:create }
+    requirements: {_method: post}
+timetable_edit:
+    path:     /edit
+    defaults: {_controller: AclClassifiedBundle:Timetable:edit }
+
+

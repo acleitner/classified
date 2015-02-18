@@ -12,11 +12,15 @@ login:
 login_check:
     path:     /login_check
 logout:
-    path:     /admin/logout
+    path:     /logout
 
 timetable:
     path:     /timetable
-    defaults: {_controller: AclClassifiedBundle:Timetable:viewTimetable }
+    defaults: {_controller: AclClassifiedBundle:Timetable:view }
+timetable_new:
+    path:     /timetable/new
+    defaults: {_controller: AclClassifiedBundle:Timetable:new }
+
 
 account_register:
     path:     /register

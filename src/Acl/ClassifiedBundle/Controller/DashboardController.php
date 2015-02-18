@@ -8,6 +8,6 @@ class DashboardController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('AclClassifiedBundle:Home:index.html.twig', array());
+        return $this->render('AclClassifiedBundle:Dashboard:index.html.twig', array());
     }
 }

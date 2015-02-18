@@ -17,12 +17,13 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt|error)|css|images|js)/
             security: false
-
-        default:
+        main:
             anonymous: ~
             form_login:
                 login_path: /login
                 check_path: /login_check
+                success_handler: login_success_handler
+                use_referer: false
                 username_parameter: _email
             logout:
                 path:   /logout
