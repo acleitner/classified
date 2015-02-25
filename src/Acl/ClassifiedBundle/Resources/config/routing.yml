@@ -14,13 +14,9 @@ login_check:
 logout:
     path:     /logout
 
-timetable:
-    path:     /timetable
-    defaults: {_controller: AclClassifiedBundle:Timetable:view }
-timetable_new:
-    path:     /timetable/new
-    defaults: {_controller: AclClassifiedBundle:Timetable:new }
-
+AclClassifiedBundle_timetable:
+    prefix:   /timetable
+    resource: "@AclClassifiedBundle/Resources/config/routing/timetable.yml"
 
 account_register:
     path:     /register

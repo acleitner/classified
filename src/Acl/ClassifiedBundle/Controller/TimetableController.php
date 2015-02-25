@@ -18,11 +18,12 @@ class TimetableController extends Controller
 
     public function newAction()
     {
-      $timetable = new TimeTable();
-      $form
-      return $this->render('AclClassifiedBundle:Timetable:new.html.twig', array(
-          $
-      ));
+      $timetable = new Timetable();
+      $form = $this->createForm(new TimetableType(), $timetable);
+      return $this->render(
+          'AclClassifiedBundle:Timetable:new.html.twig',
+          array('form' => $form->createView())
+      );
     }
 
     public function editAction()

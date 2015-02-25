@@ -1,7 +1,5 @@
-parameters:
-    acl_classified.handler.login_success_handler.class: Acl\ClassifiedBundle\Handler\LoginSuccessHandler
 services:
     login_success_handler:
-        class:     %acl_classified.handler.login_success_handler.class%
+        class:     Acl\ClassifiedBundle\Handler\LoginSuccessHandler
         arguments: [@router, @security.authorization_checker]
 
