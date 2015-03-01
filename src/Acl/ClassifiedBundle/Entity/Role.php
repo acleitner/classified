@@ -11,17 +11,22 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="role")
  * @ORM\Entity()
  */
-class Role implements RoleInterface
+class Role implements RoleInterface, \Serializable
 {
     /**
-     * @ORM\Column(type="integer")
      * @ORM\Id
+     * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=30, name="name")
+     * @ORM\Column(type="datetime", name="created_at")
+     */
+    protected $createdAt;
+
+    /**
+     * @ORM\Column(type="string", length=32, name="name")
      */
     private $name;
 
@@ -38,11 +43,32 @@ class Role implements RoleInterface
 
     public function __construct()
     {
+        $this->setCreatedAt(new \DateTime('now'));
         $this->users = new ArrayCollection();
     }
 
     /**
-     * @see ROleInterface
+     * Set created_at
+     * @param \DateTime $createdAt
+     * @return string
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * Get created_at
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @see RoleInterface
      */
     public function getRole()
     {
@@ -126,5 +152,38 @@ class Role implements RoleInterface
     public function getUsers()
     {
         return $this->users;
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * String representation of object
+     * @link http://php.net/manual/en/serializable.serialize.php
+     * @return string the string representation of the object or null
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id.
+            $this->name,
+            $this->createdAt
+        ));
+    }
+
+    /**
+     * (PHP 5 &gt;= 5.1.0)<br/>
+     * Constructs the object
+     * @link http://php.net/manual/en/serializable.unserialize.php
+     * @param string $serialized <p>
+     * The string representation of the object.
+     * </p>
+     * @return void
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->name,
+            $this->createdAt
+        ) = unserialize($serialized);
     }
 }

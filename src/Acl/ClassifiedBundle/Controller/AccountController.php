@@ -5,8 +5,8 @@ namespace Acl\ClassifiedBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-use Acl\ClassifiedBundle\Form\Type\RegistrationType;
-use Acl\ClassifiedBundle\Form\Model\Registration;
+use Acl\ClassifiedBundle\Form\Type\RegistrationFormType;
+use Acl\ClassifiedBundle\Entity\User;
 
 class AccountController extends Controller
 {
@@ -15,16 +15,11 @@ class AccountController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $form = $this->createForm(new RegistrationType(), new Registration());
+        $form = $this->createForm(new RegistrationFormType(), new User());
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            $registration = $form->getData();
-
-            $user = $registration->getUser();
-
-            $roleRepository = $this->getDoctrine()->getRepository('AclClassifiedBundle:Role');
-            $role = $roleRepository->findOneByName('user');
+            $user = $form->getData();
             $user->addRole($role);
             $encoder = $this->get('security.encoder_factory')->getEncoder($user);
             $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
@@ -43,8 +38,8 @@ class AccountController extends Controller
 
     public function registerAction()
     {
-        $registration = new Registration();
-        $form = $this->createForm(new RegistrationType(), $registration, array(
+        $user = new User();
+        $form = $this->createForm(new RegistrationFormType(), $user, array(
             'action' => $this->generateUrl('account_create'),
         ));
 

@@ -41,12 +41,12 @@ class Course
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="courses")
      */
     private $instructor;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Department")
+     * @ORM\ManyToOne(targetEntity="Department", inversedBy="courses")
      */
     private $department;
 

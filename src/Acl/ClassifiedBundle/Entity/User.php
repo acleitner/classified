@@ -3,10 +3,10 @@
 // src/Acl/ClassifiedBundle/Entity/User.php
 namespace Acl\ClassifiedBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -48,6 +48,10 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $lastName;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="user")
+     */
+    private $courses;
 
     /**
      * @ORM\Column(type="string", length=32)
@@ -70,6 +74,7 @@ class User implements AdvancedUserInterface, \Serializable
         $this->isActive = true;
         $this->salt = md5(uniqid(null, true));
         $this->roles = new ArrayCollection();
+        $this->courses = new ArrayCollection();
     }
 
     /**
@@ -114,6 +119,33 @@ class User implements AdvancedUserInterface, \Serializable
      */
     public function eraseCredentials()
     {
+    }
+
+    /**
+     * @param \Acl\ClassifiedBundle\Entity\Course $course
+     * @return $this
+     */
+    public function addCourse($course)
+    {
+        $this->courses[] = $course;
+        return $this;
+    }
+
+    /**
+     * @param \Acl\ClassifiedBundle\Entity\Course $course
+     */
+    public function removeCourse($course)
+    {
+        $this->courses->removeElement($course);
+    }
+
+    /**
+     * Get courses
+     * @return Collection
+     */
+    public function getCourses()
+    {
+        return $this->courses;
     }
 
     /**
@@ -300,10 +332,10 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Add roles
      *
-     * @param \Acl\ClassifiedBundle\Entity\Role $roles
+     * @param Role $roles
      * @return User
      */
-    public function addRole(\Acl\ClassifiedBundle\Entity\Role $role)
+    public function addRole($role)
     {
         $this->roles[] = $role;
 
@@ -313,10 +345,10 @@ class User implements AdvancedUserInterface, \Serializable
     /**
      * Remove roles
      *
-     * @param \Acl\ClassifiedBundle\Entity\Role $roles
+     * @param Role $roles
      */
-    public function removeRole(\Acl\ClassifiedBundle\Entity\Role $roles)
+    public function removeRole($role)
     {
-        $this->roles->removeElement($roles);
+        $this->roles->removeElement($role);
     }
 }

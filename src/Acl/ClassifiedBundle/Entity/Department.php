@@ -26,12 +26,12 @@ class Department
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="User")
+     * @ORM\OneToMany(targetEntity="User", mappedBy="department")
      */
     private $instructors;
 
     /**
-     * @ORM\OneToMany(targetEntity="Course")
+     * @ORM\OneToMany(targetEntity="Course", mappedBy="department")
      */
     private $courses;
 
